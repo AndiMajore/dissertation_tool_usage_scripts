@@ -146,7 +146,7 @@ def plot_combined_figure(tool_stats, timeline, color_map, output_dir, figure_nam
     for spine in ['top', 'right']: ax1.spines[spine].set_visible(False)
     for spine in ['left', 'bottom']: ax1.spines[spine].set_color('#555555')
 
-    ax1.legend(bbox_to_anchor=(1.02, 0.5), loc='center left', fontsize='medium', ncol=1, frameon=False,
+    ax1.legend(bbox_to_anchor=(1.02, 0.5), loc='center left', fontsize='small', ncol=1, frameon=False,
                labelspacing=0.9, title="Tools (Sorted by Total Hits)", title_fontsize='medium', handlelength=2.5, alignment='left')
     ax1.get_legend().get_title().set_ha("left")
 
@@ -194,7 +194,7 @@ def plot_combined_figure(tool_stats, timeline, color_map, output_dir, figure_nam
     for spine in ['top', 'right']: ax2.spines[spine].set_visible(False)
     for spine in ['left', 'bottom']: ax2.spines[spine].set_color('#555555')
 
-    ax2.legend(bbox_to_anchor=(1.02, 0.5), loc='center left', fontsize='medium', ncol=1, frameon=False,
+    ax2.legend(bbox_to_anchor=(1.02, 0.5), loc='center left', fontsize='small', ncol=1, frameon=False,
                labelspacing=0.9, title="Tools (Sorted by Total Uniques)", title_fontsize='medium', handlelength=2.5, alignment='left')
     ax2.get_legend().get_title().set_ha("left")
 
