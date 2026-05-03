@@ -4,7 +4,7 @@ BASE_DIR="/home/andim/Downloads/apache_log_archives/"
 
 order=["old", "middle", "current"]
 
-
+print("Combining Log archives and current log...")
 for log_dir in os.listdir(BASE_DIR+"old/"):
     new_dir = "../logs/"+log_dir
     os.system(f"mkdir -p {new_dir}")

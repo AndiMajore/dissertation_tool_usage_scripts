@@ -51,7 +51,7 @@ def analyze_everything():
 
         ip_first_seen = {}  # Track first appearance of IP for this tool
 
-        print(f"Reading: {tool_name}...")
+        print(f"\t\tReading: {tool_name}...")
         with open(full_path, 'r') as f:
             for line in f:
                 match = LOG_PATTERN.match(line)
@@ -213,11 +213,14 @@ def plot_combined_figure(tool_stats, timeline, color_map, output_dir, figure_nam
     )
     plt.close()
 
-print("Analyzing logs (Single Pass)...")
+print("Creating summary figure for unique visits and absolute number of requests...")
+
+print("\tReading filtered logs...")
 stats, timeline = analyze_everything()
 colors = get_master_color_map(list(stats.keys()))
+print("\t...Done")
 
-print("Generating Combined Publication Figure...")
+print("\tGenerating Combined Publication Figure...")
 plot_combined_figure(
     tool_stats=stats,
     timeline=timeline,
@@ -225,3 +228,5 @@ plot_combined_figure(
     output_dir=output_dir,
     figure_name="figure-usage_statistics_combined"
 )
+print("\t...Done")
+print("Figure safed as ../output/figure-usage_statistics_combined.png")

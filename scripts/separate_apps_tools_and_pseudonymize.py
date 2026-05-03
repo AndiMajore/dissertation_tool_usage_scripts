@@ -28,6 +28,8 @@ def close_all_fhs():
     for t in fhs:
         fhs[t].close()
 
+print("Separate app logs from combined log file...")
+
 with open(f"{BASE_DIR}access.log") as f:
     for line in f.readlines():
         l= line.split(" ")
@@ -51,9 +53,11 @@ with open(f"{BASE_DIR}access.log") as f:
         fh.write(line)
     close_all_fhs()
 
+print("Pseudonymize unrelated app log names...")
 
 for tool in toolnames:
     os.system(f"mv ../logs/{tool} ../logs/{toolnames[tool]}")
 
+print("Remove other webresource logs...")
 for tool in exclude:
     os.system(f"rm -rf ../logs/{tool}")

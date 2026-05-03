@@ -1,5 +1,4 @@
 logs/
 config.toml
 .idea/
-results/fake_bot.ips
-results/*.ips
+results/
