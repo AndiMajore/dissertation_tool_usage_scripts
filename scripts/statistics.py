@@ -93,7 +93,7 @@ def get_master_color_map(tool_names):
 
 
 def plot_combined_figure(tool_stats, timeline, color_map, output_dir, figure_name="usage_statistics_combined"):
-    fig, (ax1, ax2) = plt.subplots(2, 1, figsize=(16, 20))
+    fig, (ax2, ax1) = plt.subplots(2, 1, figsize=(16, 20))
 
     base_colors = {
         "drugstone": "#9B5C97",
@@ -125,7 +125,7 @@ def plot_combined_figure(tool_stats, timeline, color_map, output_dir, figure_nam
         ax1.plot(
             timeline, values, label=formatted_label,
             color=plot_color, linestyle=plot_linestyle,
-            alpha=0.4 if is_app else 0.9, linewidth=1.0 if is_app else 2.0,
+            alpha=0.6 if is_app else 0.9, linewidth=1.0 if is_app else 2.0,
             zorder=1 if is_app else 2, marker='.', markersize=3 if is_app else 5
         )
 
@@ -139,7 +139,7 @@ def plot_combined_figure(tool_stats, timeline, color_map, output_dir, figure_nam
     ax1.set_xticks(xticks_pos)
     ax1.set_xticklabels(xticks_labels, rotation=45, ha='right')
 
-    ax1.text(-0.06, 1.05, 'A', transform=ax1.transAxes, fontsize=36, fontweight='bold', va='top', ha='right')
+    ax1.text(-0.06, 1.05, 'B', transform=ax1.transAxes, fontsize=36, fontweight='bold', va='top', ha='right')
 
     ax1.grid(True, which='major', axis='y', linestyle='-', alpha=0.15)
     ax1.grid(True, which='minor', axis='y', linestyle=':', alpha=0.10)
@@ -177,7 +177,7 @@ def plot_combined_figure(tool_stats, timeline, color_map, output_dir, figure_nam
         ax2.plot(
             timeline, values, label=formatted_label,
             color=plot_color, linestyle=plot_linestyle,
-            alpha=0.4 if is_app else 0.9, linewidth=1.0 if is_app else 2.0,
+            alpha=0.6 if is_app else 0.9, linewidth=1.0 if is_app else 2.0,
             zorder=1 if is_app else 2, marker='.', markersize=3 if is_app else 5
         )
 
@@ -188,7 +188,7 @@ def plot_combined_figure(tool_stats, timeline, color_map, output_dir, figure_nam
     ax2.set_xticks(xticks_pos)
     ax2.set_xticklabels(xticks_labels, rotation=45, ha='right')
 
-    ax2.text(-0.06, 1.05, 'B', transform=ax2.transAxes, fontsize=36, fontweight='bold', va='top', ha='right')
+    ax2.text(-0.06, 1.05, 'A', transform=ax2.transAxes, fontsize=36, fontweight='bold', va='top', ha='right')
 
     ax2.grid(True, which='major', axis='y', linestyle='-', alpha=0.15)
     for spine in ['top', 'right']: ax2.spines[spine].set_visible(False)

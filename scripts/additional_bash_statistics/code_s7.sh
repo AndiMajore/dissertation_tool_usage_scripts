@@ -1,0 +1,1 @@
+grep "drugstone.js" $1 |  awk '{print($11)}' | sort -u | grep -oP "http[s]?://.*?/" |  grep -vP "http[s]?://[0-9]+\.[0-9]+\.[0-9]+\.[0-9]+|localhost|drugst\.one" | sort -u | wc -l
