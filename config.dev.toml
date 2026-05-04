@@ -15,3 +15,6 @@ public_facing_app_2 = "app-101"
 "app-101/access_backend.log" = "app-101/backend-log.txt"
 public_facing_app_3 = "app-102"
 "app-102/access.log" = "app-102/website-access.log"
+
+[extract-nedrex-web-backend-from]
+drugstone = "drugstone-backend"

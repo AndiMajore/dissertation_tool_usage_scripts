@@ -7,7 +7,7 @@ print("Cleaning logs from some false positive hits...")
 
 print("\tCreating fake_bot.ips list from Drugst.One Standalone access not loading drugstone.js plugin...")
 os.system("bash ./additional_bash_statistics/code_s1.sh")
-print("\tCreated fake_bot.ips list!")
+print(f"\tCreated fake_bot.ips list containing {sum(1 for _ in open('../results/fake_bot.ips'))} IPs!")
 
 
 ip_filter_command = "grep -v -F -f ../results/fake_bot.ips"

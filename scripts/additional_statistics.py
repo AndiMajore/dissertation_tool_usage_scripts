@@ -45,7 +45,7 @@ run_s4("../logs/drugstone/website-access-filtered.log", "../results/drugstone_st
 print(f"\tDrugst.One - Standalone - Referrals: {count_lines('../results/drugstone_standalone_referrals_total.ips')}")
 
 run_s5("../logs/drugstone/website-access-filtered.log","../results/drugstone_standalone_referrals.urls")
-print(f"\tDrugst.One - Standalone - Unique Referrers: {count_lines('../results/drugstone_standalone_referrals.urls')}")
+print(f"\tDrugst.One - Standalone - Uniquely Referred IPs: {count_lines('../results/drugstone_standalone_referrals.urls')}")
 
 run_s6("../results/drugstone_plugin_unique.ips", "../results/drugstone_website_unique.ips", "../results/drugstone_plugin_no_website.ips")
 print(f"\tDrugst.One - Plugin only (not through website): {count_lines('../results/drugstone_plugin_no_website.ips')}")

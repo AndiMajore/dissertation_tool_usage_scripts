@@ -11,6 +11,7 @@ with open("../config.toml", "rb") as f:
 toolname_map = config["toolname_map"]
 toolnames = config["toolnames"]
 exclude = config["exclude"]
+extract = config["extract-nedrex-web-backend-from"]
 
 
 fhs = {}
@@ -52,6 +53,18 @@ with open(f"{BASE_DIR}access.log") as f:
         fh = get_fh(toolname)
         fh.write(line)
     close_all_fhs()
+
+print("Extracting Nedrex-Web-Backend log entries from shared log...")
+for file,match in extract.items():
+    original_file="../logs/"+file+"/backend-access.log"
+    combined_file="../logs/"+file+"/backend-access-combined.log"
+    nedrex_web_backend_log="../logs/nedrex-web/backend-access.log"
+    os.system(f"mv {original_file} {combined_file}")
+    os.system(f"grep {match} {combined_file} > {original_file}")
+    os.system(f"grep -v {match} {combined_file} > {nedrex_web_backend_log}")
+    os.system(f"rm {combined_file}")
+
+
 
 print("Pseudonymize unrelated app log names...")
 
