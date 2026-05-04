@@ -31,7 +31,12 @@ def get_tool_name(log_suffix):
     """Naming logic matching your latest preference."""
     parts = log_suffix.split('/')
     folder = parts[-2] if len(parts) > 1 else ""
-    filename = parts[-1].replace('-access-filtered.log', '')
+    filename = parts[-1]
+    if "-access-filtered.log" in filename:
+        filename = filename.replace('-access-filtered.log', '')
+    if "-access.log" in filename:
+        filename = filename.replace('-access.log', '')
+
     if folder == "apps":
         folder = ""
     return f"{folder}-{filename}" if folder else filename
@@ -230,3 +235,27 @@ plot_combined_figure(
 )
 print("\t...Done")
 print("Figure safed as ../output/figure-usage_statistics_combined.png")
+
+lognames = set()
+for file in os.listdir(BASE_DIR):
+    for app in os.listdir(BASE_DIR+file):
+        if "access.log" in app:
+            lognames.add(f"{file}/{app}")
+
+print("Creating summary figure for unique visits and absolute number of requests for NON-FILTERED logs...")
+
+print("\tReading non-filtered logs...")
+stats, timeline = analyze_everything()
+colors = get_master_color_map(list(stats.keys()))
+print("\t...Done")
+
+print("\tGenerating Combined Publication Figure without filters...")
+plot_combined_figure(
+    tool_stats=stats,
+    timeline=timeline,
+    color_map=colors,
+    output_dir=output_dir,
+    figure_name="figure-usage_statistics_combined-unfiltered"
+)
+print("\t...Done")
+print("Figure safed as ../output/figure-usage_statistics_combined-unfiltered.png")
