@@ -1,3 +1,4 @@
+archive_source_dir = "/path/to/your/apache_log_archives/"
 exclude = ["unnecessary-folder", "temp/logs.txt", "archived-data"]
 
 [toolname_map]
