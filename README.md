@@ -2,13 +2,6 @@
 
 This project processes apache web service access logs to generate usage statistics, unique visitor counts, and behavioral metrics for various tools (Drugst.One, NeDRex, etc.) after cleaning the logs form easily detectable bot-based requets.
 
-## Requirements
-
-*   **Python 3.11+**: The scripts use the built-in `tomllib` (available since 3.11). For older versions, you may need to install and alias `tomli`.
-*   **Python Libraries**:
-    *   pandas
-    *   matplotlib 
-
 ## Workflow Overview
 
 The pipeline (`run_all.sh`) executes the following steps:
@@ -20,6 +13,13 @@ The pipeline (`run_all.sh`) executes the following steps:
 
 
 6. (**Log Injection**: Latest run_all.sh.log is added to the bottom of this README.md for transparancy)
+
+## Requirements
+
+*   **Python 3.11+**: The scripts use the built-in `tomllib` (available since 3.11). For older versions, you may need to install and alias `tomli`.
+*   **Python Libraries**:
+    *   pandas
+    *   matplotlib 
 
 ## Filtering Logic
 
