@@ -1,0 +1,1 @@
+cat $1 | xargs -I {} -P 10 sh -c "curl -s --head --connect-timeout 3 --max-time 5 {} -o /dev/null && echo {}" > $2

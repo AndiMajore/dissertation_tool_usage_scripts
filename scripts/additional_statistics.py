@@ -1,4 +1,7 @@
-import os, sys
+import os
+import subprocess
+import re
+from urllib.parse import urlparse
 
 def count_lines(file):
     return sum(1 for _ in open(file))
@@ -31,6 +34,38 @@ def run_s9(toolname):
         os.system(f"bash ./additional_bash_statistics/code_s9_drugstone_stable.sh {toolname}")
     else:
         os.system(f"bash ./additional_bash_statistics/code_s9.sh {toolname}")
+
+def get_ip(domain):
+    """Uses ping to resolve the IP address of a domain."""
+    try:
+        result = subprocess.run(
+            ['ping', '-c', '1', '-W', '1', domain],
+            capture_output=True, text=True, timeout=2
+        )
+        match = re.search(r'\(([\d\.]+)\)', result.stdout)
+        return match.group(1) if match else None
+    except Exception:
+        return None
+
+def verify_urls(url_file):
+    filtered_urls = set()
+    with open(url_file) as f:
+        for url in f.readlines():
+            url = url.strip()
+            domain = urlparse(url).netloc
+            if "translate.goog" in domain:
+                continue
+            ip = get_ip(domain)
+            if ip is not None:
+                filtered_urls.add(url)
+    return filtered_urls
+
+def run_s7_filter(in_file, out_file):
+    filtered_entries = verify_urls(in_file)
+    with open(out_file, 'w') as f:
+        for k in filtered_entries:
+            f.write(f"{k}\n")
+
 
 print("Creating additional statistics for dissertation...")
 
@@ -69,7 +104,8 @@ run_s4("../logs/drugstone/website-access-filtered.log", "../results/drugstone_st
 print(f"\tDrugst.One - Standalone - Referrals: {count_lines('../results/drugstone_standalone_referrals_total.ips')}")
 
 run_s7("../logs/drugstone/cdn-access-filtered.log", '../results/drugstone_plugin_unique_integrator.urls')
-print(f"\tDrugst.One - Plugin - Unique Integrator URLs: {count_lines('../results/drugstone_plugin_unique_integrator.urls')}")
+run_s7_filter('../results/drugstone_plugin_unique_integrator.urls', '../results/drugstone_plugin_unique_integrator_filtered.urls')
+print(f"\tDrugst.One - Plugin - Unique Integrator URLs [filtered (all)]: {count_lines('../results/drugstone_plugin_unique_integrator_filtered.urls')} ({count_lines('../results/drugstone_plugin_unique_integrator.urls')})")
 
 
 print(f"\tDrugst.One - Plugin - Unique IPs: {count_lines('../results/drugstone_plugin_unique.ips')}")
