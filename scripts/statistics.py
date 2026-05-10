@@ -123,7 +123,7 @@ def get_master_color_map(tool_names):
 
 
 def plot_double_figure_equal_content(component_stats, aggregated_stats, timeline, color_map, output_dir,
-                                     figure_name="usage_statistics", metric="unique"):
+                                     figure_name="usage_statistics", metric="unique", unfiltered=False):
     fig, (ax_1, ax_2) = plt.subplots(2, 1, figsize=(18, 22))
     fig.subplots_adjust(hspace=0.3)
 
@@ -214,7 +214,8 @@ def plot_double_figure_equal_content(component_stats, aggregated_stats, timeline
                 plot_title = "Cumulative Unique Visitors (Aggregated Main Tools)"
             else:
                 plot_title = "Cumulative Unique Visitors (Individual Components)"
-
+        if unfiltered:
+            plot_title += " - Unfiltered"
         # Increased title and tick labels
         ax.set_title(plot_title, fontsize=30, pad=20, fontweight='500')
         ax.tick_params(axis='both', which='major', labelsize=20)
@@ -225,7 +226,7 @@ def plot_double_figure_equal_content(component_stats, aggregated_stats, timeline
         ax.set_xticklabels(xticks_labels, rotation=45, ha='right')
 
         # Scaled up the panel letters (A, B)
-        ax.text(-0.06, 1.05, letter, transform=ax.transAxes, fontsize=50, fontweight='bold', va='top', ha='right')
+        ax.text(-0.12, 1.05, letter, transform=ax.transAxes, fontsize=50, fontweight='bold', va='top', ha='right')
 
         ax.grid(True, which='major', axis='y', linestyle='-', alpha=0.15)
         for spine in ['top', 'right']: ax.spines[spine].set_visible(False)
@@ -477,6 +478,11 @@ print(f"Figures saved as {output_dir}/figure-usage_statistics_*.png")
 # Optional: Run again for the unfiltered set if needed.
 print("Creating summary figure for unique visits and absolute number of requests for NON-FILTERED logs...")
 print("\tReading non-filtered logs...")
+lognames = set()
+for file in os.listdir(BASE_DIR):
+    for app in os.listdir(BASE_DIR+file):
+        if "access.log" in app:
+            lognames.add(f"{file}/{app}")
 comp_stats, agg_stats, timeline = analyze_everything()
 all_tool_names = list(comp_stats.keys()) + list(agg_stats.keys())
 colors = get_master_color_map(all_tool_names)
@@ -490,7 +496,8 @@ plot_double_figure_equal_content(
     color_map=colors,
     output_dir=output_dir,
     figure_name="figure-usage_statistics-unfiltered",
-    metric="unique"
+    metric="unique",
+    unfiltered=True
 )
 plot_double_figure_equal_content(
     component_stats=comp_stats,
@@ -499,7 +506,8 @@ plot_double_figure_equal_content(
     color_map=colors,
     output_dir=output_dir,
     figure_name="figure-usage_statistics-unfiltered",
-    metric="requests"
+    metric="requests",
+    unfiltered=True
 )
 print("\t...Done")
 print(f"Figures saved as {output_dir}/figure-usage_statistics-unfiltered*.png")
