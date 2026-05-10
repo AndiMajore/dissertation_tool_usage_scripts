@@ -1,4 +1,4 @@
-import os, sys
+import os
 BASE_DIR="../logs/apps/"
 
 import tomli as tomllib  # Built-in for Python 3.11+. If using < 3.11, `pip install tomli` and `import tomli as tomllib`
