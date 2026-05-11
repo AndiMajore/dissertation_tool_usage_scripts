@@ -1,5 +1,4 @@
-import os,sys
-import pandas as pd
+import os
 import re
 import matplotlib.pyplot as plt
 from collections import Counter
@@ -241,11 +240,11 @@ def plot_double_figure_equal_content(component_stats, aggregated_stats, timeline
 
     out_path = Path(output_dir)
     out_path.mkdir(parents=True, exist_ok=True)
-    file_path = out_path / f"{figure_name_full}.png"
+    file_path = out_path / f"{figure_name_full}.pdf"
 
     fig.savefig(
         file_path,
-        format='png',
+        format='pdf',
         dpi=600,
         bbox_inches='tight',
         transparent=True
